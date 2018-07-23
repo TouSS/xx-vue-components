@@ -3,7 +3,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
-  mode: 'development',
+  mode: 'production', //生产模式
+  //mode: 'development', //开发模式
   entry: './src/components/index.js',
   output: {
     path: path.resolve(__dirname, '../dist'),

@@ -4,6 +4,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const components = require('./components')
 module.exports = {
+  devServer: {
+    port: 8000
+  },
   mode: 'development',
   entry: components.entry,
   output: {
