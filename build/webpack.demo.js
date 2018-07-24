@@ -8,16 +8,17 @@ module.exports = {
     port: 8000
   },
   mode: 'development',
+  devtool: 'eval-source-map',
   entry: components.entry,
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'js/[name].js'
   },
-  resolve: {
+  /* resolve: {
     alias: {
       vue$: 'vue/dist/vue.esm.js'
     }
-  },
+  }, */
   module: {
     rules: [
       {
