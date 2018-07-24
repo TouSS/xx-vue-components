@@ -16,16 +16,18 @@ let html = [
 ]
 let files = fs.readdirSync(componentsDir)
 files.forEach(file => {
-  entry[file] = `${componentsDir}/${file}/index.js`
-  html.push(
-    new HtmlWebpackPlugin({
-      template: `${componentsDir}/${file}/index.html`,
-      filename: `${file}.html`,
-      showErrors: true,
-      inject: 'body',
-      chunks: [`${file}`]
-    })
-  )
+  if(fs.statSync(`${componentsDir}/${file}`).isDirectory()) {
+    entry[file] = `${componentsDir}/${file}/index.js`
+    html.push(
+      new HtmlWebpackPlugin({
+        template: `${componentsDir}/${file}/index.html`,
+        filename: `${file}.html`,
+        showErrors: true,
+        inject: 'body',
+        chunks: [`${file}`]
+      })
+    )
+  }
 })
 
 exports.entry = entry
