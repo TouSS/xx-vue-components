@@ -30,6 +30,13 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['vue-style-loader', 'css-loader']
+      }, {
+        test: /\.(png|jpg|gif|woff|woff2|ttf|eot|svg)$/,
+        loader: 'url-loader',
+        query: {
+          limit: 8192
+        }
+
       }
     ]
   },
@@ -37,6 +44,7 @@ module.exports = {
     new VueLoaderPlugin(),
     new CleanWebpackPlugin(['dist'], {
       root: `${__dirname}/../`,
+      exclude: ['lib'],
       verbose: true,
       dry: false
     })
