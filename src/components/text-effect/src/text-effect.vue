@@ -1,11 +1,12 @@
 <template>
-    <div :id="id" class="anim-text hide" contenteditable spellcheck="false">{{text}}</div>
+    <div :id="id" class="anim-text hide" contenteditable="false" spellcheck="false">{{text}}</div>
 </template>
 <script>
 import { guid, effect } from "./effect";
 export default {
   name: "text-effect",
   label: "文字特效",
+  requirement: 'Vue',
   props: ["id", "text", "type"],
   watch: {
     text(newVal, oldVal) {

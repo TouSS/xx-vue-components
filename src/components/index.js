@@ -1,6 +1,11 @@
 import FileViewer from './file-viewer/src/file-viewer.vue'
+import PublishStateDialog from './publish-state-dialog/src/publish-state-dialog.vue'
+import Md5CheckDialog from './md5-check-dialog/src/md5-check-dialog.vue'
+import TextEffect from './text-effect/src/text-effect.vue'
+import PhotoWall from './photo-wall/src/photo-wall.vue'
+import PhotoWall2 from './photo-wall2/src/photo-wall2.vue'
 
-const components = [FileViewer]
+const components = [FileViewer, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2]
 
 let isWeb = typeof window !== 'undefined' && window.Vue
 
@@ -14,4 +19,4 @@ components.forEach(component => {
   }
 })
 
-export { _info, FileViewer }
+export { _info, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2 }

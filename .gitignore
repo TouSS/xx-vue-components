@@ -1,2 +1,5 @@
 node_modules
 dist
+src/components/publish-state-dialog
+src/components/md5-check-dialog
+src/test

@@ -4,10 +4,11 @@
             "env",
             {
                 "targets": {
-                    "browsers": [
-                        "cover 99.5%"
-                    ]
-                }
+                    "chrome": 52
+                },
+                "modules": false,
+                "loose": true,
+                "debug": true
             }
         ]
     ]
