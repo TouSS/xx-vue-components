@@ -11,11 +11,6 @@ module.exports = {
     path: path.resolve(__dirname, '../dist'),
     filename: 'xx-components.js'
   },
-  resolve: {
-    alias: {
-      vue$: 'vue/dist/vue.esm.js'
-    }
-  },
   module: {
     rules: [
       {

@@ -4,8 +4,9 @@ import Md5CheckDialog from './md5-check-dialog/src/md5-check-dialog.vue'
 import TextEffect from './text-effect/src/text-effect.vue'
 import PhotoWall from './photo-wall/src/photo-wall.vue'
 import PhotoWall2 from './photo-wall2/src/photo-wall2.vue'
+import PhotoWrap1 from './photo-wrap-1/src/photo-wrap-1.vue'
 
-const components = [FileViewer, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2]
+const components = [FileViewer, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2, PhotoWrap1]
 
 let isWeb = typeof window !== 'undefined' && window.Vue
 
@@ -19,4 +20,4 @@ components.forEach(component => {
   }
 })
 
-export { _info, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2 }
+export { _info, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2, PhotoWrap1 }
