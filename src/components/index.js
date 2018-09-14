@@ -1,4 +1,4 @@
-import 'material-design-icons/iconfont/material-icons.css'
+//import 'material-design-icons/iconfont/material-icons.css'
 
 import FileViewer from './file-viewer/src/file-viewer.vue'
 import PublishStateDialog from './publish-state-dialog/src/publish-state-dialog.vue'

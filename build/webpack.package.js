@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
   mode: 'production', //生产模式
   //mode: 'development', //开发模式
-  devtool: 'eval-source-map',
+  //devtool: 'eval-source-map', //打包源码-便于调试
   entry: './src/components/index.js',
   output: {
     path: path.resolve(__dirname, '../dist'),

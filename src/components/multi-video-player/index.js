@@ -1,4 +1,4 @@
-import 'material-design-icons/iconfont/material-icons.css'
+//import 'material-design-icons/iconfont/material-icons.css'
 import MultiVideoPlayer from './src/multi-video-player.vue'
 
 if (typeof window !== 'undefined' && window.Vue) {
