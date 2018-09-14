@@ -1,28 +1,28 @@
 <template>
-    <div class="player-container">
-        <div class="player-videos">
-            <video v-for="(part, index) in parts" :id="'video-part-' + index" :src="part" preload :key="index" :index="index">
-                您的浏览器不支持该视频播放，请下载最新谷歌浏览器。
-            </video>
-        </div>
-        <div class="player-controls">
-            <i v-if="playState != 'playing'" @click="play" class="material-icons player-controls-play">play_circle_outline</i>
-            <i v-if="playState == 'playing'" @click="pause" class="material-icons player-controls-pause">pause_circle_outline</i>
-            <div class="player-controls-played-time">{{format(processBar.process)}}</div>
-
-            <el-slider class="player-controls-process" v-model="processBar.process" :show-tooltip="false" :min="processBar.min" :max="processBar.max" :step="processBar.step" @change="onProcessChange"></el-slider>
-
-            <i v-if="!isFullscreen" class="material-icons player-controls-fullscreen" @click="fullscreen">fullscreen</i>
-            <i v-if="isFullscreen" class="material-icons player-controls-fullscreen" @click="exitFullscreen">fullscreen_exit</i>
-            <div class="player-controls-total-time">{{format(processBar.max)}}</div>
-        </div>
+  <div class="player-container">
+    <div class="player-videos">
+      <video v-for="(part, index) in parts" :id="'video-part-' + index" :src="part" preload :key="index" :index="index">
+        您的浏览器不支持该视频播放，请下载最新谷歌浏览器。
+      </video>
     </div>
+    <div class="player-controls">
+      <i v-if="playState != 'playing'" @click="play" class="material-icons player-controls-play">play_circle_outline</i>
+      <i v-if="playState == 'playing'" @click="pause" class="material-icons player-controls-pause">pause_circle_outline</i>
+      <div class="player-controls-played-time">{{format(processBar.process)}}</div>
+
+      <el-slider class="player-controls-process" v-model="processBar.process" :show-tooltip="false" :min="processBar.min" :max="processBar.max" :step="processBar.step" @change="onProcessChange"></el-slider>
+
+      <i v-if="!isFullscreen" class="material-icons player-controls-fullscreen" @click="fullscreen">fullscreen</i>
+      <i v-if="isFullscreen" class="material-icons player-controls-fullscreen" @click="exitFullscreen">fullscreen_exit</i>
+      <div class="player-controls-total-time">{{format(processBar.max)}}</div>
+    </div>
+  </div>
 </template>
 <script>
 export default {
   name: "multi-video-player",
   label: "H5视频播放器（可多段视频）",
-  props: ["parts"],
+  props: ["parts", "loop"],
   data() {
     return {
       processBar: {
@@ -73,8 +73,8 @@ export default {
           index++;
           if (index == this.videos.length) {
             //播放结束, 切到第一个分片
-            this.over();
             this.switch(0);
+            this.over();
           } else {
             this.switch(index);
             this.play();
@@ -140,7 +140,10 @@ export default {
     over() {
       clearInterval(this.processTimer);
       this.playState = "over";
-      alert("播放完啦...");
+      //连续播放
+      if ("" === this.loop || 'true' == this.loop) {
+        this.play();
+      }
     },
     newProcessTimer() {
       this.processTimer = setInterval(() => {
