@@ -22,7 +22,7 @@
 export default {
   name: "multi-video-player",
   label: "H5视频播放器（可多段视频）",
-  props: ["parts", "loop"],
+  props: ["parts", "loop", "autoplay"],
   data() {
     return {
       processBar: {
@@ -95,6 +95,10 @@ export default {
       this.newProcessTimer();
       //切到第一段
       this.switch(0);
+      //自动播放
+      if ("" === this.autoplay || 'true' == this.autoplay) {
+        this.play();
+      }
     },
     resizePlayerControls() {
       let container = document.getElementsByClassName("player-container")[0];
