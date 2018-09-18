@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css">
+  <link href="https://aliyun.beecdn.cn/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
   <title>MultiVideoPlayer</title>
   <script src="https://aliyun.beecdn.cn/libs/vue/2.5.17/vue.js"></script>
@@ -18,7 +19,7 @@
     <strong>We're sorry but hello-world doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
   <div id="app" style="height: 600px; width: 800px; margin: auto; overflow: hidden;">
-    <multi-video-player :parts="parts" loop autoplay></multi-video-player>
+    <multi-video-player :parts="parts" enter="animated slideInLeft" leave="animated slideOutUp" loop autoplay></multi-video-player>
   </div>
 </body>
 

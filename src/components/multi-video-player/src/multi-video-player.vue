@@ -1,9 +1,11 @@
 <template>
   <div class="player-container">
     <div class="player-videos">
-      <video v-for="(part, index) in parts" :id="'video-part-' + index" :src="part" preload :key="index" :index="index">
-        您的浏览器不支持该视频播放，请下载最新谷歌浏览器。
-      </video>
+      <transition-group name="animate-classes-transition" :enter-active-class="enter" :leave-active-class="leave">
+        <video v-show="index == videoIndex" v-for="(part, index) in parts" :id="'video-part-' + index" :src="part" preload :key="index" :index="index">
+          您的浏览器不支持该视频播放，请下载最新谷歌浏览器。
+        </video>
+      </transition-group>
     </div>
     <div class="player-controls">
       <i v-if="playState != 'playing'" @click="play" class="material-icons player-controls-play">play_circle_outline</i>
@@ -22,7 +24,7 @@
 export default {
   name: "multi-video-player",
   label: "H5视频播放器（可多段视频）",
-  props: ["parts", "loop", "autoplay"],
+  props: ["parts", "loop", "autoplay", "enter", "leave"],
   data() {
     return {
       processBar: {
@@ -33,6 +35,7 @@ export default {
       },
       playState: "paused",
       isFullscreen: false,
+      videoIndex: 0,
       video: null,
       videos: [],
       processTimer: null,
@@ -96,7 +99,7 @@ export default {
       //切到第一段
       this.switch(0);
       //自动播放
-      if ("" === this.autoplay || 'true' == this.autoplay) {
+      if ("" === this.autoplay || "true" == this.autoplay) {
         this.play();
       }
     },
@@ -136,7 +139,7 @@ export default {
       let h = this.leftPadZero((second / 60 / 60) % 60, 2);
       let m = this.leftPadZero((second / 60) % 60, 2);
       let s = this.leftPadZero(second % 60, 2);
-      return `${h}:${m}:${s}`;
+      return h == "00" ? `${m}:${s}` : `${h}:${m}:${s}`;
     },
     leftPadZero(num, length) {
       return (Array(length).join("0") + Math.floor(num)).slice(-length);
@@ -145,7 +148,7 @@ export default {
       clearInterval(this.processTimer);
       this.playState = "over";
       //连续播放
-      if ("" === this.loop || 'true' == this.loop) {
+      if ("" === this.loop || "true" == this.loop) {
         this.play();
       }
     },
@@ -166,10 +169,11 @@ export default {
         let video = this.videos[i];
         if (index == i) {
           addAble = false;
-          video.style.opacity = 1;
+          //video.style.opacity = 1;
+          this.videoIndex = index;
           this.video = video;
         } else {
-          video.style.opacity = 0;
+          //video.style.opacity = 0;
         }
         if (addAble) this.secondIncrement += video.duration;
       }
@@ -264,7 +268,7 @@ video::-webkit-media-controls {
   height: 100%;
   width: 100%;
   background-color: #000;
-  opacity: 0;
+  /* opacity: 0; */
   position: absolute;
   left: 0px;
   top: 0px;

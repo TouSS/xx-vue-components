@@ -7,10 +7,12 @@ if (typeof window !== 'undefined' && window.Vue) {
   new Vue({
     el: '#app',
     data: {
-        parts: [
-            "http://192.168.1.8:3000/videos/40d/d4d/40dd4dd8bedaad61216edb09f20e5641.mp4",
-            "http://192.168.1.8:3000/videos/40d/d4d/40dd4dd8bedaad61216edb09f20e5641.mp4"
-          ]
+      show: true,
+      parts: [
+        "http://192.168.1.8:3000/videos/b0c/d0c/b0cd0c944296e7d417336cbdfb668f71.mp4",
+        "http://192.168.1.8:3000/videos/0ea/ace/0eaacebe8ddf58f192ba2034668a6724.mp4",
+        "http://192.168.1.8:3000/videos/79b/5af/79b5af0c548fe315cb0bfa3949c30c70.mp4"
+      ]
     }
   })
 }
