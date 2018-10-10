@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import $ from "jquery";
 export default {
   name: "flashing",
   label: "文字快闪",
