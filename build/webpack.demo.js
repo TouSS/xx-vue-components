@@ -30,13 +30,21 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['vue-style-loader', 'css-loader']
-      }, {
+      },
+      {
+        test: /\.less/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'less-loader'
+        ]
+      },
+      {
         test: /\.(png|jpg|gif|woff|woff2|ttf|eot|svg)$/,
         loader: 'url-loader',
         query: {
           limit: 8192
         }
-
       }
     ]
   },

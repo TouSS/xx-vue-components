@@ -27,8 +27,17 @@ module.exports = {
       // 以及 `.vue` 文件中的 `<style>` 块
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader']
-      }, {
+        use: ['vue-style-loader', 'css-loader', 'less-loader']
+      },
+      {
+        test: /\.less/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'less-loader'
+        ]
+      },
+      {
         test: /\.(png|jpg|gif|woff|woff2|ttf|eot|svg)$/,
         loader: 'url-loader',
         query: {

@@ -8,8 +8,9 @@ import PhotoWall from './photo-wall/src/photo-wall.vue'
 import PhotoWall2 from './photo-wall2/src/photo-wall2.vue'
 import PhotoWrap1 from './photo-wrap-1/src/photo-wrap-1.vue'
 import MultiVideoPlayer from './multi-video-player/src/multi-video-player.vue'
+import Flashing from './flashing/src/flashing.vue'
 
-const components = [FileViewer, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2, PhotoWrap1, MultiVideoPlayer]
+const components = [FileViewer, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2, PhotoWrap1, MultiVideoPlayer, Flashing]
 
 let isWeb = typeof window !== 'undefined' && window.Vue
 
@@ -23,4 +24,4 @@ components.forEach(component => {
   }
 })
 
-export { _info, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2, PhotoWrap1, MultiVideoPlayer }
+export { _info, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2, PhotoWrap1, MultiVideoPlayer, Flashing }
