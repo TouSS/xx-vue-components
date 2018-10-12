@@ -8,9 +8,10 @@
 export default {
   name: "flashing",
   label: "文字快闪",
-  props: ['words'],
+  props: ["words", "loop", "delay"],
   data() {
     return {
+      playWords: [],
       htmlBox: ""
     };
   },
@@ -34,7 +35,15 @@ export default {
       }
       let str = "";
       words[0].forEach(x => {
-        let style = words.length == 1 ? {"font-size": "150px", "position": "absolute", "top": "45%", "color": "red"} : setArea();
+        let style =
+          words.length == 1
+            ? {
+                "font-size": "60px",
+                position: "absolute",
+                top: "40%",
+                transform: "transform:translateX(-50%);"
+              }
+            : setArea();
         let s = "";
         for (let k in style) {
           if (words[0].length == 1 && k == "transform") {
@@ -46,13 +55,19 @@ export default {
         str += `<span style="${s}">${x}</span>`;
       });
       this.htmlBox = str;
-      console.log(str);
       setTimeout(x => {
         words.splice(0, 1);
         demo(words);
-      }, 700);
+      }, this.delay);
     };
-    demo(this.words);
+    this.playWords = JSON.parse(JSON.stringify(this.words));
+    demo(this.playWords);
+    if (this.loop) {
+      setInterval(() => {
+        this.playWords = JSON.parse(JSON.stringify(this.words));
+        demo(this.playWords);
+      }, this.delay * (this.words.length + 2));
+    }
   },
   methods: {}
 };
