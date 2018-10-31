@@ -10,7 +10,7 @@
         <div class="timeline__post">
           <div class="timeline__content" v-for="e in d.eventList" :key="e.period">
             <h3 @click="onChoose(y.year, d.month, d.day, e)">{{e.title}}</h3>
-            <h4>{{e.period}}</h4>
+            <h4>{{e.period}} {{e.place}}</h4>
             <p>{{e.event}}</p>
           </div>
         </div>
@@ -152,6 +152,9 @@ export default {
 .timeline__content h3 {
   cursor: pointer;
   color: #5565c0;
+}
+.timeline__content h4 {
+  color: #7888dd;
 }
 
 </style>
