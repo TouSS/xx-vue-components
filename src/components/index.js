@@ -43,6 +43,12 @@ const AJAX = {
   post,
   postJson
 }
+
+if(isWeb) {
+  window.xx_info = _info,
+  window.AJAX = AJAX
+}
+
 export {
   AJAX,
   _info,
