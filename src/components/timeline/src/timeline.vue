@@ -37,10 +37,7 @@ export default {
         year: year,
         month: month,
         day: day,
-        title: event.title,
-        startTime: event.startTime,
-        endTime: event.endTime,
-        detail: event.event
+        event: event
       })
     },
     onEdit(year, month, day, event) {
@@ -48,10 +45,7 @@ export default {
         year: year,
         month: month,
         day: day,
-        title: event.title,
-        startTime: event.startTime,
-        endTime: event.endTime,
-        detail: event.event
+        event: event
       })
     },
     onDelete(year, month, day, event) {
@@ -59,10 +53,7 @@ export default {
         year: year,
         month: month,
         day: day,
-        title: event.title,
-        startTime: event.startTime,
-        endTime: event.endTime,
-        detail: event.event
+        event: event
       })
     }
   }
