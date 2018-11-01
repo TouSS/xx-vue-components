@@ -1,4 +1,5 @@
 //import 'material-design-icons/iconfont/material-icons.css'
+import { get, post, postJson } from '../lib/ajax.js'
 
 import FileViewer from './file-viewer/src/file-viewer.vue'
 import PublishStateDialog from './publish-state-dialog/src/publish-state-dialog.vue'
@@ -11,7 +12,18 @@ import MultiVideoPlayer from './multi-video-player/src/multi-video-player.vue'
 import Flashing from './flashing/src/flashing.vue'
 import Timeline from './timeline/src/timeline.vue'
 
-const components = [FileViewer, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2, PhotoWrap1, MultiVideoPlayer, Flashing, Timeline]
+const components = [
+  FileViewer,
+  PublishStateDialog,
+  Md5CheckDialog,
+  TextEffect,
+  PhotoWall,
+  PhotoWall2,
+  PhotoWrap1,
+  MultiVideoPlayer,
+  Flashing,
+  Timeline
+]
 
 let isWeb = typeof window !== 'undefined' && window.Vue
 
@@ -25,4 +37,22 @@ components.forEach(component => {
   }
 })
 
-export { _info, PublishStateDialog, Md5CheckDialog, TextEffect, PhotoWall, PhotoWall2, PhotoWrap1, MultiVideoPlayer, Flashing, Timeline }
+/* ajax tools base on jQuery, you should link jQuery into you html page . */
+const AJAX = {
+  get,
+  post,
+  postJson
+}
+export {
+  AJAX,
+  _info,
+  PublishStateDialog,
+  Md5CheckDialog,
+  TextEffect,
+  PhotoWall,
+  PhotoWall2,
+  PhotoWrap1,
+  MultiVideoPlayer,
+  Flashing,
+  Timeline
+}

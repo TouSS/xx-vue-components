@@ -9,9 +9,16 @@
         </div>
         <div class="timeline__post">
           <div class="timeline__content" v-for="e in d.eventList" :key="e.period">
-            <h3 @click="onChoose(y.year, d.month, d.day, e)">{{e.title}}</h3>
-            <h4>{{e.period}} {{e.place}}</h4>
+
+            <h3><span @click="onChoose(y.year, d.month, d.day, e)">{{e.title}}</span>
+              <div class="timeline_btn">
+                <button class="edit" @click="onEdit(y.year, d.month, d.day, e)">编辑</button>
+                <button class="delete" @click="onDelete(y.year, d.month, d.day, e)">移除</button>
+              </div>
+            </h3>
+            <h4>{{e.startTime}} - {{e.endTime}} {{e.place}}</h4>
             <p>{{e.event}}</p>
+
           </div>
         </div>
       </div>
@@ -26,7 +33,37 @@ export default {
   props: ['events'],
   methods: {
     onChoose(year, month, day, event) {
-      this.$emit('on-choose', {year: year, month: month, day: day, title: event.title, period: event.period, detail: event.event})
+      this.$emit('on-choose', {
+        year: year,
+        month: month,
+        day: day,
+        title: event.title,
+        startTime: event.startTime,
+        endTime: event.endTime,
+        detail: event.event
+      })
+    },
+    onEdit(year, month, day, event) {
+      this.$emit('on-edit', {
+        year: year,
+        month: month,
+        day: day,
+        title: event.title,
+        startTime: event.startTime,
+        endTime: event.endTime,
+        detail: event.event
+      })
+    },
+    onDelete(year, month, day, event) {
+      this.$emit('on-delete', {
+        year: year,
+        month: month,
+        day: day,
+        title: event.title,
+        startTime: event.startTime,
+        endTime: event.endTime,
+        detail: event.event
+      })
     }
   }
 }
@@ -63,7 +100,7 @@ export default {
   padding: 0.5rem 1.5rem;
   color: var(--uiTimelineSecondaryColor);
   /* background-color: var(--uiTimelineMainColor); */
-  background-color:#131e5e;
+  background-color: #131e5e;
 
   position: absolute;
   left: 0;
@@ -149,12 +186,37 @@ export default {
   --timelineMainColor: #4557bb;
 }
 
-.timeline__content h3 {
+.timeline__content h3 span {
   cursor: pointer;
   color: #5565c0;
 }
 .timeline__content h4 {
   color: #7888dd;
 }
-
+.timeline_btn {
+  float: right;
+  margin-right: 15px;
+}
+.timeline_btn button {
+  width: 45px;
+  height: 25px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+}
+button.edit {
+  background-color: cornflowerblue;
+}
+button.edit:hover {
+  background-color: rgb(66, 113, 199);
+}
+button.delete {
+  background-color: crimson;
+}
+button.delete:hover {
+  background-color: rgb(182, 6, 41);
+}
 </style>

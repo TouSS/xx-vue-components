@@ -15,7 +15,7 @@
     <strong>We're sorry but hello-world doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
   <div id="app">
-    <timeline :events="events" @on-choose="onChoose"></timeline>
+    <timeline :events="events" @on-choose="onChoose" @on-edit="onEdit" @on-delete="onDelete"></timeline>
   </div>
 </body>
 
