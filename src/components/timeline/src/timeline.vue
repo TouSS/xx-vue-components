@@ -4,20 +4,20 @@
       <span class="timeline__year">{{y.year}}</span>
       <div class="timeline__box" v-for="d in y.eventList" :key="y.year + '-' + d.month + '-' + d.day">
         <div class="timeline__date">
-          <span class="timeline__day">{{d.day}}</span>
-          <span class="timeline__month">{{d.month}}</span>
+          <span class="timeline__day">{{d.day > 9 ? d.day : '0' + d.day}}</span>
+          <span class="timeline__month">{{d.month > 9 ? d.month : '0' + d.month}}</span>
         </div>
         <div class="timeline__post">
           <div class="timeline__content" v-for="e in d.eventList" :key="e.period">
 
-            <h3><span @click="onChoose(y.year, d.month, d.day, e)">{{e.title}}</span>
+            <h3><span @click="onChoose(y.year, d.month, d.day, e)">{{e.name}}</span>
               <div class="timeline_btn">
                 <button class="edit" @click="onEdit(y.year, d.month, d.day, e)">编辑</button>
                 <button class="delete" @click="onDelete(y.year, d.month, d.day, e)">移除</button>
               </div>
             </h3>
             <h4>{{e.startTime}} - {{e.endTime}} {{e.place}}</h4>
-            <p>{{e.event}}</p>
+            <p>{{e.description}}</p>
 
           </div>
         </div>
