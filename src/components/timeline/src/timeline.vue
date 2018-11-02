@@ -16,7 +16,7 @@
                 <button class="delete" @click="onDelete(y.year, d.month, d.day, e)">移除</button>
               </div>
             </h3>
-            <h4>{{e.startTime}} - {{e.endTime}} {{e.place}}</h4>
+            <h4>{{new Date(e.startTime).toLocaleString()}} - {{new Date(e.endTime).toLocaleString()}} {{e.place}}</h4>
             <p>{{e.description}}</p>
 
           </div>
