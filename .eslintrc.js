@@ -1,3 +1,7 @@
 module.exports = {
-    "extends": "standard"
-};
+  extends: [
+    // add more generic rulesets here, such as:
+    // 'eslint:recommended',
+    'plugin:vue/essential'
+  ]
+}

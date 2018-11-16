@@ -2,7 +2,7 @@
   <div class="player-container">
     <div class="player-videos">
       <transition-group name="animate-classes-transition" :enter-active-class="enter" :leave-active-class="leave">
-        <video v-show="index == videoIndex" v-for="(part, index) in parts" :id="'video-part-' + index" :src="part" preload :key="index" :index="index">
+        <video muted="muted" v-show="index == videoIndex" v-for="(part, index) in parts" :id="'video-part-' + index" :src="part" preload :key="index" :index="index">
           您的浏览器不支持该视频播放，请下载最新谷歌浏览器。
         </video>
       </transition-group>
@@ -22,9 +22,9 @@
 </template>
 <script>
 export default {
-  name: "multi-video-player",
-  label: "H5视频播放器（可多段视频）",
-  props: ["parts", "loop", "autoplay", "enter", "leave"],
+  name: 'multi-video-player',
+  label: 'H5视频播放器（可多段视频）',
+  props: ['parts', 'loop', 'autoplay', 'enter', 'leave'],
   data() {
     return {
       processBar: {
@@ -33,7 +33,7 @@ export default {
         max: 0,
         step: 1
       },
-      playState: "paused",
+      playState: 'paused',
       isFullscreen: false,
       videoIndex: 0,
       video: null,
@@ -41,164 +41,168 @@ export default {
       processTimer: null,
       controlsTimer: null,
       secondIncrement: 0
-    };
+    }
   },
   mounted() {
     window.onresize = () => {
       if (
         window.screen.width ==
-        document.getElementsByClassName("player-container")[0].clientWidth
+        document.getElementsByClassName('player-container')[0].clientWidth
       ) {
-        this.isFullscreen = true;
+        this.isFullscreen = true
       } else {
-        this.isFullscreen = false;
+        this.isFullscreen = false
       }
-      this.resizePlayerControls();
-    };
+      this.resizePlayerControls()
+    }
     window.onload = () => {
-      this.resizePlayerControls();
-      this.video = document.getElementById("video-part-0");
+      this.resizePlayerControls()
+      this.video = document.getElementById('video-part-0')
       this.videos = document
-        .getElementsByClassName("player-container")[0]
-        .getElementsByTagName("video");
+        .getElementsByClassName('player-container')[0]
+        .getElementsByTagName('video')
 
-      this.initPlayerControls(this.videos);
-    };
+      this.initPlayerControls(this.videos)
+    }
   },
   methods: {
     initPlayerControls(videos) {
-      let duration = 0;
+      let duration = 0
       for (let i = 0; i < videos.length; i++) {
-        let video = videos[i];
-        duration += video.duration;
+        let video = videos[i]
+        duration += video.duration
         video.onended = e => {
-          let index = Number.parseInt(e.currentTarget.getAttribute("index"));
-          index++;
+          let index = Number.parseInt(e.currentTarget.getAttribute('index'))
+          index++
           if (index == this.videos.length) {
             //播放结束, 切到第一个分片
-            this.switch(0);
-            this.over();
+            //重新加载释放内存
+            for (let i = 0; i < this.videos.length; i++) {
+              this.videos[i].load()
+            }
+            this.switch(0)
+            this.over()
           } else {
-            this.switch(index);
-            this.play();
+            this.switch(index)
+            this.play()
           }
-        };
+        }
 
         video.onmousemove = () => {
-          clearTimeout(this.controlsTimer);
-          this.showControls();
+          clearTimeout(this.controlsTimer)
+          this.showControls()
           this.controlsTimer = setTimeout(() => {
-            this.hideControls();
-          }, 5000);
-        };
+            this.hideControls()
+          }, 5000)
+        }
       }
-      this.processBar.max = duration;
-      this.video = videos[0];
+      this.processBar.max = duration
+      this.video = videos[0]
       //添加定时器获取播放时间
-      this.newProcessTimer();
+      this.newProcessTimer()
       //切到第一段
-      this.switch(0);
+      this.switch(0)
       //自动播放
-      if ("" === this.autoplay || "true" == this.autoplay) {
-        this.play();
+      if ('' === this.autoplay || 'true' == this.autoplay) {
+        this.play()
       }
     },
     resizePlayerControls() {
-      let container = document.getElementsByClassName("player-container")[0];
+      let container = document.getElementsByClassName('player-container')[0]
       let processBar = document.getElementsByClassName(
-        "player-controls-process"
-      )[0];
-      let containerWidth = container.clientWidth;
-      let processBarWidth = containerWidth - 320;
-      processBar.style.width = processBarWidth + "px";
+        'player-controls-process'
+      )[0]
+      let containerWidth = container.clientWidth
+      let processBarWidth = containerWidth - 320
+      processBar.style.width = processBarWidth + 'px'
     },
     play() {
-      this.video.play();
-      this.playState = "playing";
-      this.newProcessTimer();
+      this.video.play()
+      this.playState = 'playing'
+      this.newProcessTimer()
     },
     pause() {
-      this.playState = "paused";
-      this.video.pause();
-      clearInterval(this.processTimer);
+      this.playState = 'paused'
+      this.video.pause()
+      clearInterval(this.processTimer)
     },
     fullscreen() {
       document
-        .getElementsByClassName("player-container")[0]
-        .webkitRequestFullscreen();
-      this.isFullscreen = true;
+        .getElementsByClassName('player-container')[0]
+        .webkitRequestFullscreen()
+      this.isFullscreen = true
     },
     exitFullscreen() {
-      document.webkitExitFullscreen();
-      this.isFullscreen = false;
+      document.webkitExitFullscreen()
+      this.isFullscreen = false
     },
     onProcessChange() {
-      this.seek(this.processBar.process);
+      this.seek(this.processBar.process)
     },
     format(second) {
-      let h = this.leftPadZero((second / 60 / 60) % 60, 2);
-      let m = this.leftPadZero((second / 60) % 60, 2);
-      let s = this.leftPadZero(second % 60, 2);
-      return h == "00" ? `${m}:${s}` : `${h}:${m}:${s}`;
+      let h = this.leftPadZero((second / 60 / 60) % 60, 2)
+      let m = this.leftPadZero((second / 60) % 60, 2)
+      let s = this.leftPadZero(second % 60, 2)
+      return h == '00' ? `${m}:${s}` : `${h}:${m}:${s}`
     },
     leftPadZero(num, length) {
-      return (Array(length).join("0") + Math.floor(num)).slice(-length);
+      return (Array(length).join('0') + Math.floor(num)).slice(-length)
     },
     over() {
-      clearInterval(this.processTimer);
-      this.playState = "over";
+      clearInterval(this.processTimer)
+      this.playState = 'over'
       //连续播放
-      if ("" === this.loop || "true" == this.loop) {
-        this.play();
+      if ('' === this.loop || 'true' == this.loop) {
+        this.play()
       }
     },
     newProcessTimer() {
       this.processTimer = setInterval(() => {
-        this.processBar.process = this.video.currentTime + this.secondIncrement;
+        this.processBar.process = this.video.currentTime + this.secondIncrement
         if (this.video.currentTime == this.processBar.max) {
-          this.over();
+          this.over()
         }
-      }, 1000);
+      }, 1000)
     },
     switch(index, seconds) {
-      this.pause();
-      this.video = this.videos[0];
-      this.secondIncrement = 0;
-      let addAble = true;
+      this.pause()
+      this.video = this.videos[0]
+      this.secondIncrement = 0
+      let addAble = true
       for (let i = 0; i < this.videos.length; i++) {
-        let video = this.videos[i];
+        let video = this.videos[i]
         if (index == i) {
-          addAble = false;
+          addAble = false
           //video.style.opacity = 1;
-          this.videoIndex = index;
-          this.video = video;
+          this.videoIndex = index
+          this.video = video
         } else {
           //video.style.opacity = 0;
         }
-        if (addAble) this.secondIncrement += video.duration;
+        if (addAble) this.secondIncrement += video.duration
       }
-      this.video.currentTime = seconds ? seconds : 0;
+      this.video.currentTime = seconds ? seconds : 0
     },
     seek(seconds) {
       for (let i = 0; i < this.videos.length; i++) {
-        let video = this.videos[i];
+        let video = this.videos[i]
         if (seconds > video.duration) {
-          seconds = seconds - video.duration;
+          seconds = seconds - video.duration
         } else {
-          this.switch(i, seconds);
-          this.play();
-          break;
+          this.switch(i, seconds)
+          this.play()
+          break
         }
       }
     },
     showControls() {
-      document.getElementsByClassName("player-controls")[0].style.opacity = "1";
+      document.getElementsByClassName('player-controls')[0].style.opacity = '1'
     },
     hideControls() {
-      document.getElementsByClassName("player-controls")[0].style.opacity = "0";
+      document.getElementsByClassName('player-controls')[0].style.opacity = '0'
     }
   }
-};
+}
 </script>
 <style scoped>
 video::-webkit-media-controls {
