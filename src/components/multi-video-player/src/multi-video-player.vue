@@ -105,7 +105,10 @@ export default {
       //切到第一段
       this.switch(0)
       //是否有跳转
-      if(this.seeker) this.seek(Number.parseInt(this.seeker))
+      if(this.seeker) {
+        this.seek(Number.parseInt(this.seeker))
+        this.processBar.process = Number.parseInt(this.seeker)
+      }
       //自动播放
       if ('' === this.autoplay || 'true' == this.autoplay) {
         this.play()
@@ -192,13 +195,14 @@ export default {
       this.video.currentTime = seconds ? seconds : 0
     },
     seek(seconds) {
+      let playState = this.playState
       for (let i = 0; i < this.videos.length; i++) {
         let video = this.videos[i]
         if (seconds > video.duration) {
           seconds = seconds - video.duration
         } else {
           this.switch(i, seconds)
-          this.play()
+          if('playing' == playState) this.play()
           break
         }
       }
