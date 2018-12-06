@@ -2,7 +2,7 @@
   <div class="player-container">
     <div class="player-videos">
       <transition-group name="animate-classes-transition" :enter-active-class="enter" :leave-active-class="leave">
-        <video muted="muted" v-show="index == videoIndex" v-for="(part, index) in parts" :id="'video-part-' + index" :src="part" preload :key="index" :index="index">
+        <video muted="muted" v-show="index == videoIndex" v-for="(part, index) in parts" :id="'video-part-' + index" :src="part.src" :poster="part.poster" preload :key="index" :index="index">
           您的浏览器不支持该视频播放，请下载最新谷歌浏览器。
         </video>
       </transition-group>
@@ -24,7 +24,7 @@
 export default {
   name: 'multi-video-player',
   label: 'H5视频播放器（可多段视频）',
-  props: ['parts', 'loop', 'autoplay', 'enter', 'leave'],
+  props: ['parts', 'loop', 'autoplay', 'enter', 'leave', 'seeker'],
   data() {
     return {
       processBar: {
@@ -82,6 +82,8 @@ export default {
             }
             this.switch(0)
             this.over()
+            //播放结束
+            this.$emit('play-state-change', "ended")
           } else {
             this.switch(index)
             this.play()
@@ -102,6 +104,8 @@ export default {
       this.newProcessTimer()
       //切到第一段
       this.switch(0)
+      //是否有跳转
+      if(this.seeker) this.seek(Number.parseInt(this.seeker))
       //自动播放
       if ('' === this.autoplay || 'true' == this.autoplay) {
         this.play()
@@ -120,11 +124,15 @@ export default {
       this.video.play()
       this.playState = 'playing'
       this.newProcessTimer()
+      //开始事件
+      this.$emit('play-state-change', "play")
     },
     pause() {
       this.playState = 'paused'
       this.video.pause()
       clearInterval(this.processTimer)
+      //开始事件
+      this.$emit('play-state-change', "pause")
     },
     fullscreen() {
       document
@@ -200,6 +208,17 @@ export default {
     },
     hideControls() {
       document.getElementsByClassName('player-controls')[0].style.opacity = '0'
+    },
+    getProcess() {
+      return this.processBar.process
+    }
+  },
+  watch: {
+    seeker(newVal, oldVal) {
+      if(newVal) {
+        this.processBar.process = Number.parseInt(newVal)
+        this.seek(this.processBar.process)
+      }
     }
   }
 }

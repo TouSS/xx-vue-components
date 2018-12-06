@@ -19,7 +19,7 @@
     <strong>We're sorry but hello-world doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
   <div id="app" style="height: 600px; width: 800px; margin: auto; overflow: hidden;">
-    <multi-video-player :parts="parts" enter="animated slideInLeft" leave="animated slideOutUp" loop autoplay></multi-video-player>
+    <multi-video-player ref="player" @play-state-change="onPlayStateChange" :seeker="line" :parts="parts" enter="animated slideInLeft" leave="animated slideOutUp" loop autoplay></multi-video-player>
   </div>
 </body>
 
