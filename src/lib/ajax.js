@@ -3,6 +3,7 @@ export function get(url, handleSuccess, handleError) {
         type: 'GET',
         url: url,
         dataType: 'json',
+        complete: function (jqXHR, textStatus) {},
         success: function (reps) {
             if (handleSuccess) handleSuccess(reps)
         },
@@ -22,6 +23,7 @@ export function post(url, data, handleSuccess, handleError) {
         url: url,
         dataType: 'json',
         data: str,
+        complete: function (jqXHR, textStatus) {},
         success: function (reps) {
             if (handleSuccess) handleSuccess(reps)
         },
@@ -38,6 +40,7 @@ export function postJson(url, data, handleSuccess, handleError) {
         dataType: 'json',
         data: JSON.stringify(data),
         contentType: 'application/json',
+        complete: function (jqXHR, textStatus) {},
         success: function (reps) {
             if (handleSuccess) handleSuccess(reps)
         },
